@@ -11,9 +11,9 @@ const updateRoute = require('./routes/update');
 const getStatRoute = require('./routes/getStat');
 
 //middlewares
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(cors());
 
 // routes
 app.get('/', (req, res) => {
@@ -26,11 +26,11 @@ mongoose.connect(process.env.DB_CONNECT, {
 });
 
 const db = mongoose.connection;
-db.once('open', (_) => {
+db.once('open', _ => {
 	console.log('Database connected:', process.env.DB_CONNECT);
 });
 
-db.on('error', (err) => {
+db.on('error', err => {
 	console.error('connection error:', err);
 });
 
@@ -41,5 +41,5 @@ app.use('/getstat', getStatRoute);
 
 //listening
 app.listen(process.env.PORT || 5000, () => {
-	console.log('server is listenning');
+	console.log('server is listenning on port');
 });
